@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - Aplikacja Baza Telefonów</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link href="{{ url_for('static', filename='jquery.dataTables.min.css') }}" rel="stylesheet" type='text/css'>
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'jquery-3.5.1.js') }}" ></script>
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'jquery.dataTables.min.js') }}" ></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    <link href="https://nightly.datatables.net/select/css/select.dataTables.css?_=9a6592f8d74f8f520ff7b22342fa1183.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/select/js/dataTables.select.js?_=9a6592f8d74f8f520ff7b22342fa1183"></script>
+
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'js/checkbox.js') }}" ></script>
+</head>
+<body>
+<div class="col">
+    <div class="card shadow-sm">
+        <div class="alert alert-primary" role="alert"><a class="btn btn-outline-secondary" href="{{ url_for('panelsms_menu') }}" role="button">Powrót</a></div>
+        <div class="card-body">
+         <table class="table table-hover list-group" id="empTable">
+                <thead>
+                <tr>
+                    <th>Zaznacz</th>
+                    <th>idBudynek</th>
+                    <th>Indeks Budynku</th>
+                    <th>Symbol Osiedla</th>
+                    <th>Ulica</th>
+                    <th>Symbol Niieruchomości</th>
+                    <th>Numery</th>
+                </tr>
+                </thead>
+            </table>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                <!--<a href="details_2316.html" class="btn btn-outline-warning">Szczegóły</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="h-100">
+    <div class="container h-100">
+        <form class="form-horizontal" action="{{ url_for('sendsms') }}" method="post">
+            <div id="container">
+                <label for="phone">Telefon: </label>
+                <input type="text" class="form-control" id="phone" name="phone">
+            </div>
+            <div class="form-floating">
+                <label for="content">Treść: </label>
+                <textarea class="form-control" rows="5" id="content" name="content">
+                </textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+    </div>
+</section>
+
+<script>
+$(document).ready(function() {
+    var rows_selected = [];
+    var empDataTable = $('#empTable').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'ajax': {
+                    'url':'/ajaxfilepanelsms_budynek'
+                },
+                'lengthMenu': [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
+                searching: true,
+                sort: false,
+                "serverSide": true,
+                'columns': [
+                    { data: [] },
+                    { data: 'idBudynek' },
+                    { data: 'SymbolBudynku' },
+                    { data: 'SymbolOsiedla' },
+                    { data: 'Ulica' },
+                    { data: 'SymbolNieruchomosci' },
+                    { data: 'Numery' },
+                ],
+                columnDefs: [ {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0
+                    } ],
+                    select: {
+                        style:    'os',
+                        selector: 'td:first-child',
+                    },
+                    order: [[ 1, 'asc' ]],
+
+                "language": {
+                "decimal":        "",
+                "emptyTable":     "Brak danych",
+                "info":           "Pokaż _START_ do _END_ z _TOTAL_ budynków",
+                "infoEmpty":      "Pokaż 0 to 0 of 0 budynków",
+                "infoFiltered":   "(przeszukano w _MAX_ budynkach)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "Pokaż _MENU_ budynków",
+                "loadingRecords": "Ładowanie...",
+                "processing":     "Przetwarzanie...",
+                "search":         "Szukaj:",
+                "zeroRecords":    "Nie ma takiego indeksu ",
+                "paginate": {
+                    "first":      "Pierwszy",
+                    "last":       "Ostatni",
+                    "next":       "Następny",
+                    "previous":   "Poprzedni"
+                },
+                "aria": {
+                    "sortAscending":  ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                }
+            }
+            });
+});
+</script>
+</body>
+</html>
+

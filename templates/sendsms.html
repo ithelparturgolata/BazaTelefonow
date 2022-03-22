@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} - Aplikacja Baza Telefonów</title>
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'jquery-3.3.1.slim.js') }}" ></script>
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'popper.min.js') }}" ></script>
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'bootstrap.min.js') }}" ></script>
+</head>
+<body>
+
+<section class="h-100">
+    <div class="container h-100">
+        <form class="form-horizontal" action="{{ url_for('sendsms') }}" method="post">
+            <div class="form-floating mb-3">
+                <label for="phone">Telefon: </label>
+                <input type="text" class="form-control" id="phone" name="phone">
+            </div>
+            <div class="form-floating">
+                <label for="content">Contenr: </label>
+                <textarea class="form-control" rows="5" id="content" name="content">
+                </textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="modal-body">
+                                    <form action="{{ url_for('update_panelmieszkanca') }}" method="POST">
+                                        {%  if row[65] == None %}
+                                        <div class="form-group">
+                                            {% else %}
+                                             <div class="form-group">
+                                            <label>Ważne informacje:</label>
+                                            <input type="text" class="form-control" name="infoOgolne" value="{{row.65}}">
+                                        {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Indeks Budynek:</label>
+                                            <input type="hidden"  name="id_data" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="indeksBudynek" value="{{row.1}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ulica:</label>
+                                            <input type="text" class="form-control" name="ulicaBudynek" value="{{row.2}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Kod:</label>
+                                            <input type="text" class="form-control" name="kodBudynek" value="{{row.3}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Osiedle:</label>
+                                            <input type="text" class="form-control" name="nazwaOsiedla" value="{{row.4}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ulica:</label>
+                                            <input type="text" class="form-control" name="adresOsiedla" value="{{row.5}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefon:</label>
+                                            <input type="text" class="form-control" name="telefonOsiedla" value="{{row.6}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Kierownik:</label>
+                                            <input type="text" class="form-control" name="kierownikOsiedla" value="{{row.7}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Zastępca:</label>
+                                            <input type="text" class="form-control" name="zastepcaOsiedla" value="{{row.8}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Administrator:</label>
+                                            <input type="text" class="form-control" name="nazwiskoAdministrator" value="{{row.9}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefon:</label>
+                                            <input type="text" class="form-control" name="telefonAdministrator" value="{{row.10}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input type="text" class="form-control" name="emailAdministrator" value="{{row.11}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd kominiarski planowany w:</label>
+                                            <input type="text" class="form-control" name="pkominyPrzeglady" value="{{row.12}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd gazowy planowany w:</label>
+                                            <input type="text" class="form-control" name="pgazPrzeglady" value="{{row.13}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd techniczny planowany w:</label>
+                                            <input type="text" class="form-control" name="ptechnicznyPrzeglady" value="{{row.14}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd ektryczny planowany w:</label>
+                                            <input type="text" class="form-control" name="pelektrykaPrzeglady" value="{{row.15}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd ogólny planowany w:</label>
+                                            <input type="text" class="form-control" name="pogolnyPrzeglady" value="{{row.16}}">
+                                        </div>
+                                        {%  if row[17] == None %}
+                                        <div class="form-group">
+                                            {% else %}
+                                             <div class="form-group">
+                                            <label>Remonty:</label>
+                                            <input type="text" class="form-control" name="pracaRemonty" value="{{row.17}}">
+                                        {% endif %}
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="sbumit">Aktualizuj</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+
+
+
+
+</body>
+</html>
