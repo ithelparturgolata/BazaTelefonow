@@ -1,10 +1,11 @@
 {% include "header.html" %}
-<link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+{% include "base.html" %}
 {% block body %}
-<div class="container">
+    <link href="static/form_field.css" rel="stylesheet">
+    <div class="container">
     <div class="row">
         <div class="col md-12">
-            <h2>Wykaz budynków<button type="button" class="btn btn-success  pull-right" data-toggle="modal" data-target="#myModal">Dodaj</button></h2>
+            <h2>Panel Mieszkańca - TYLKO AKTUALIZACJA</h2><a class="btn btn-outline-secondary" href="{{ url_for('menu') }}" role="button">Powrót</a>
             {%with messages = get_flashed_messages()%}
                 {%if messages%}
                     {% for message in messages %}
@@ -19,126 +20,76 @@
             {%endwith%}
             <table class="table table-striped">
                 <tr>
+                    <th>id Budynek</th>
                     <th>Indeks Budynek</th>
                     <th>Ulica</th>
-                    <th>Informacje Ogólne</th>
+                    <th>Remonty</th>
+                    <th>Zadłużenie/Fundusz</th>
+                    <th>Energetyka</th>
                     <th>Przeglądy</th>
-                    <th>Akcja</th>
+                    <th>Wiadomości</th>
                 </tr>
                 {% for row in budynek %}
                     <tr>
+                        <td>{{row.0}}</td>
                         <td>{{row.1}}</td>
                         <td>{{row.2}}</td>
+{#                        <td>{{row.3}}</td>#}
                         <td>
-                            <a href="/update_panelmieszkanca/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edytuj</a>
+                            <a href="/update_panelmieszkanca_remonty/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edytuj</a>
+{#                            <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Skasuj</a>#}
                         </td>
                         <td>
-                            <a href="/update_panelmieszkanca1/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edytuj</a>
+                            <a href="/update_panelmieszkanca_fundusz/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit1{{row.0}}">Edytuj</a>
+{#                            <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Skasuj</a>#}
+                        </td>
+                        <td>
+                            <a href="/update_panelmieszkanca_energetyka/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit2{{row.0}}">Edytuj</a>
+{#                            <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Skasuj</a>#}
+                        </td>
+                        <td>
+                            <a href="/update_panelmieszkanca_przeglady/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit3{{row.0}}">Edytuj</a>
+{#                            <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Skasuj</a>#}
+                        </td>
+                        <td>
+                            <a href="/update_panelmieszkanca_infoogolne/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit4{{row.0}}">Edytuj</a>
+{#                            <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Skasuj</a>#}
                         </td>
                     </tr>
                     <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Aktualizacja</h4>
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Remonty</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ url_for('update_panelmieszkanca') }}" method="POST">
-                                        {%  if row[65] == None %}
-                                        <div class="form-group">
-                                            {% else %}
-                                             <div class="form-group">
-                                            <label>Ważne informacje:</label>
-                                            <input type="text" class="form-control" name="infoOgolne" value="{{row.65}}">
-                                        {% endif %}
-                                        </div>
+                                    <form action="{{ url_for('update_panelmieszkanca_remonty') }}" method="POST">
                                         <div class="form-group">
                                             <label>Indeks Budynek:</label>
-                                            <input type="hidden"  name="id_data" value="{{row.0}}">
-                                            <input type="text" class="form-control" name="indeksBudynek" value="{{row.1}}">
+                                            <input type="hidden"  name="idBudynek" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="indeksBudynek" value="{{row.1}}" disabled>
                                         </div>
                                         <div class="form-group">
-                                            <label>Ulica:</label>
-                                            <input type="text" class="form-control" name="ulicaBudynek" value="{{row.2}}">
+                                            <label>Rodzaj prac:</label>
+                                            <textarea type="text" class="form-control" class="form-control input-lg" name="pracaRemonty" style="height:200px;">{{row.17}}</textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>Kod:</label>
-                                            <input type="text" class="form-control" name="kodBudynek" value="{{row.3}}">
+                                            <label>Wykonawca:</label>
+                                            <textarea type="text" class="form-control"  name="wykonawcaRemonty" style="height:200px;">{{row.18}}</textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>Osiedle:</label>
-                                            <input type="text" class="form-control" name="nazwaOsiedla" value="{{row.4}}">
+                                            <label>Planowane rozpoczęcie:</label>
+                                            <input type="date" class="form-control" id="date" name="startRemonty" value="{{row.19}}">
                                         </div>
                                         <div class="form-group">
-                                            <label>Ulica:</label>
-                                            <input type="text" class="form-control" name="adresOsiedla" value="{{row.5}}">
+                                            <label>Planowane zakończenie:</label>
+                                            <input type="date" class="form-control" name="koniecRemonty" value="{{row.20}}">
                                         </div>
                                         <div class="form-group">
-                                            <label>Telefon:</label>
-                                            <input type="text" class="form-control" name="telefonOsiedla" value="{{row.6}}">
+                                            <label>Uwagi:</label>
+                                            <textarea type="text" class="form-control" name="uwagiRemonty" style="height:200px;">{{row.21}}</textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Kierownik:</label>
-                                            <input type="text" class="form-control" name="kierownikOsiedla" value="{{row.7}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Zastępca:</label>
-                                            <input type="text" class="form-control" name="zastepcaOsiedla" value="{{row.8}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Administrator:</label>
-                                            <input type="text" class="form-control" name="nazwiskoAdministrator" value="{{row.9}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Telefon:</label>
-                                            <input type="text" class="form-control" name="telefonAdministrator" value="{{row.10}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Email:</label>
-                                            <input type="text" class="form-control" name="emailAdministrator" value="{{row.11}}">
-                                        </div></div></form></div>
-
-                    <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Aktualizacja</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ url_for('update_panelmieszkanca1') }}" method="POST">
-
-                                        <div class="form-group">
-                                            <label>Przegląd kominiarski planowany w:</label>
-                                            <input type="text" class="form-control" name="pkominyPrzeglady" value="{{row.12}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Przegląd gazowy planowany w:</label>
-                                            <input type="text" class="form-control" name="pgazPrzeglady" value="{{row.13}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Przegląd techniczny planowany w:</label>
-                                            <input type="text" class="form-control" name="ptechnicznyPrzeglady" value="{{row.14}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Przegląd ektryczny planowany w:</label>
-                                            <input type="text" class="form-control" name="pelektrykaPrzeglady" value="{{row.15}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Przegląd ogólny planowany w:</label>
-                                            <input type="text" class="form-control" name="pogolnyPrzeglady" value="{{row.16}}">
-                                        </div>
-                                        {%  if row[17] == None %}
-                                        <div class="form-group">
-                                            {% else %}
-                                             <div class="form-group">
-                                            <label>Remonty:</label>
-                                            <input type="text" class="form-control" name="pracaRemonty" value="{{row.17}}">
-                                        {% endif %}
-                                        </div>
-
-
                                         <div class="form-group">
                                             <button class="btn btn-primary" type="sbumit">Aktualizuj</button>
                                         </div>
@@ -150,12 +101,194 @@
                             </div>
                         </div>
                     </div>
+{#                    Modal Fundusz i zadłużenie#}
+                    <div id="modaledit1{{row.0}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Zadłużenie / Fundusz remontowy</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('update_panelmieszkanca_fundusz') }}" method="POST">
+                                        <div class="form-group">
+                                            <label>Indeks Budynek:</label>
+                                            <input type="hidden"  name="idBudynek" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="indeksBudynek" value="{{row.1}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Zadłużenie:</label>
+                                            <input type="text" class="form-control" name="zadluzenieBudynek" value="{{row.45}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Fundusz:</label>
+                                            <input type="text" class="form-control" name="funduszBudynek" value="{{row.46}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Aktualizuj</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#                    Modal Energetyka#}
+                    <div id="modaledit2{{row.0}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Energetyka</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('update_panelmieszkanca_energetyka') }}" method="POST">
+                                        <div class="form-group">
+                                            <label>Indeks Budynek:</label>
+                                            <input type="hidden"  name="idBudynek" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="indeksBudynek" value="{{row.1}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Termin odczytu podzielników ciepła:</label>
+                                            <textarea type="text" class="form-control" name="terminPodzielniki" style="height:200px;" >{{row.40}}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Termin legalizacja wodomierzy:</label>
+                                            <textarea type="text" class="form-control" name="terminLegalizacja" style="height:200px;" >{{row.41}}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Uwagi legalizacja:</label>
+                                            <textarea type="text" class="form-control" name="uwagiLegalizacja" style="height:200px;">{{row.42}}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Wymiana baterii:</label>
+                                            <textarea type="text" class="form-control" name="wymianaBaterii" style="height:200px;" >{{row.43}}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Uwagi wymiana baterii:</label>
+                                            <textarea type="text" class="form-control" name="uwagiWymianaBaterii" style="height:200px;" >{{row.44}}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Aktualizuj</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#                    Modal przeglądy#}
+                    <div id="modaledit3{{row.0}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Przeglądy</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('update_panelmieszkanca_przeglady') }}" method="POST">
+                                        <div class="form-group">
+                                            <label>Indeks Budynek:</label>
+                                            <input type="hidden"  name="idBudynek" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="indeksBudynek" value="{{row.1}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd kominiarski (wykonany w):</label>
+                                            <input type="text" class="form-control" name="akominyPrzeglady" value="{{row.22}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd gazowy (wykonany w):</label>
+                                            <input type="text" class="form-control" name="agazPrzeglady" value="{{row.23}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd techniczny (wykonany w):</label>
+                                            <input type="text" class="form-control" name="atechnicznyPrzeglady" value="{{row.24}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd elektryczny (wykonany w):</label>
+                                            <input type="text" class="form-control" name="aelektrykaPrzeglady" value="{{row.25}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd ogólny (wykonany w):</label>
+                                            <input type="text" class="form-control" name="aogolnyPrzeglady" value="{{row.26}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd kominiarski (planowany w):</label>
+                                            <input type="text" class="form-control" name="pkominyPrzeglady" value="{{row.12}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd gazowy (planowany w):</label>
+                                            <input type="text" class="form-control" name="pgazPrzeglady" value="{{row.13}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd techniczny (planowany w):</label>
+                                            <input type="text" class="form-control" name="ptechnicznyPrzeglady" value="{{row.14}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd elektryczny (planowany w):</label>
+                                            <input type="text" class="form-control" name="pelektrykaPrzeglady" value="{{row.15}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Przegląd ogólny (planowany w):</label>
+                                            <input type="text" class="form-control" name="pogolnyPrzeglady" value="{{row.16}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Aktualizuj</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#                      Modal Energetyka#}
+                    <div id="modaledit4{{row.0}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Wiadomości</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('update_panelmieszkanca_infoogolne') }}" method="POST">
+                                        <div class="form-group">
+                                            <label>Indeks Budynek:</label>
+                                            <input type="hidden"  name="idBudynek" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="indeksBudynek" value="{{row.1}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ważne informacje:</label>
+                                            <textarea type="text" class="form-control" name="infoOgolne" style="height:200px;" >{{row.66}}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Aktualizuj</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 {% endfor  %}
                 </tbody>
             </table>
-        </div>
+
+
     </div>
 </div>
+
 {% endblock %}
 <script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+</div>

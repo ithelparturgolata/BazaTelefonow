@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %} - Aplikacja Baza Telefonów</title>
+{% include "header.html" %}
     <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
     <script type = "text/javascript" src = "{{ url_for('static', filename = 'jquery-3.3.1.slim.js') }}" ></script>
     <script type = "text/javascript" src = "{{ url_for('static', filename = 'popper.min.js') }}" ></script>
     <script type = "text/javascript" src = "{{ url_for('static', filename = 'bootstrap.min.js') }}" ></script>
-        <link href="{{ url_for('static', filename='style_bazatelefonow.css') }}" rel="stylesheet" type='text/css'>
+    <link href="{{ url_for('static', filename='style_bazatelefonow.css') }}" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
+{% block body %}
 <div class="cards">
     <h2 class="header">
         Baza Telefonów
@@ -49,6 +44,4 @@
     </div>
     <a class="btn btn-outline-secondary" href="{{ url_for('menu') }}" role="button">Powrót</a>
 </div>
-
-</body>
-</html>
+{% endblock %}

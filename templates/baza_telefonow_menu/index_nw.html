@@ -1,40 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %}Baza Telefonów</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
-</head>
-<body>
+{% include "header.html" %}
+{% include "base.html" %}
+{% include "base_bazatelefony.html" %}
+{% block body %}
 <div class="album py-5 bg-light">
     <div class="container">
-            <div class="card shadow-sm">
-                <div class="alert alert-primary" role="alert">Baza Telefonów - Administracja Na Skarpie <a class="btn btn-outline-secondary" href="{{ url_for('paneltelefony_menu') }}" role="button">Powrót</a></div>
-                <div class="card-body">
-                    <table class="table table-hover" id="empTable">
-                        <thead>
-                        <tr>
-                            <th>Indeks</th>
-                            <th>Nazwa</th>
-                            <th>Adres</th>
-                            <th>Klatka</th>
-                            <th>Telefon</th>
-                            <th>Administracja</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
+        <div class="card shadow-sm">
+            <div class="alert alert-primary" role="alert">Baza Telefonów - Administracja Na Wyżynach <a class="btn btn-outline-warning" href="{{ url_for('paneltelefony_menu') }}" role="button">Powrót</a></div>
+            <div class="card-body">
+                <table class="table table-hover" id="empTable">
+                    <thead>
+                    <tr>
+                        <th>Indeks</th>
+                        <th>Kontrahent</th>
+                        <th>Adres</th>
+                        <th>Klatka</th>
+                        <th>Telefon</th>
+                        <th>Administracja</th>
+                    </tr>
+                    </thead>
+                </table>
             </div>
+        </div>
     </div>
 </div>
-
-        {#        <div class="card-body">#}
+{#<div class="col">#}
+{#    <div class="card shadow-sm">#}
+{#        <div class="alert alert-primary" role="alert"><a class="btn btn-outline-secondary" href="{{ url_for('paneltelefony_menu') }}" role="button">Powrót</a></div>#}
+{#        <div class="card-body">#}
 {#            <table class="table table-hover" id="empTable">#}
 {#                <thead>#}
 {#                <tr>#}
@@ -62,7 +54,7 @@ $(document).ready(function() {
                 'serverSide': true,
                 'serverMethod': 'post',
                 'ajax': {
-                    'url':'/ajaxfilens'
+                    'url':'/ajaxfilenw'
                 },
                 'lengthMenu': [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
                 searching: true,
@@ -103,6 +95,4 @@ $(document).ready(function() {
             });
 });
 </script>
-
-</body>
-</html>
+{% endblock %}

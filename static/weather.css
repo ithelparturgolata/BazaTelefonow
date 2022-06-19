@@ -1,0 +1,19 @@
+form {
+  margin: 30px auto;
+  width: 90% !important;
+}
+
+form h2 {
+  margin: 20px 0px 30px 0px;
+}
+
+form input,
+label {
+  margin: 5px 0px;
+}
+.container {
+  width: 90% !important;
+}
+.info {
+  display: flex;
+}

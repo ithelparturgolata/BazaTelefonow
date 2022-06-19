@@ -1,11 +1,10 @@
 {% include "header.html" %}
 {% include "base.html" %}
-{% include "base_bazasmsy.html" %}
 {% block body %}
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="card shadow-sm">
-            <div class="alert alert-primary" role="alert"><a class="btn btn-outline-warning" href="{{ url_for('panelsms_menu') }}" role="button">Powrót</a>
+            <div class="alert alert-primary" role="alert"><a class="btn btn-outline-secondary" href="{{ url_for('panelsms_menu') }}" role="button">Powrót</a>
                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Jak wysłać sms
                 </button>
@@ -39,6 +38,7 @@
                     <thead>
                     <tr>
                     <th>Zaznacz</th>
+                    <th>idBudynek</th>
                     <th>Indeks Budynku</th>
                     <th>Symbol Osiedla</th>
                     <th>Ulica</th>
@@ -53,28 +53,7 @@
 </div>
 <section class="h-100">
     <div class="container h-100">
-        <form class="form-horizontal" action="{{ url_for('sendsms_budynek') }}" method="post">
-                <div class="btn-group">
-                    <h4>Wybierz treść: </h4>&nbsp;&nbsp;&nbsp;
-                    <select>
-                        <option selected>-----</option>
-                        <option value="Informujemy, ze (x-data) w godzinach (x) zostanie zamkniety doplyw wody.">Awaria wodna</option>
-                        <option value="Informujemy, ze (x-data) w godzinach (x) zostanie wyłaczone centralne ogrzewanie.">Awaria c.o.</option>
-                        <option value="Informujemy, ze przerwa w dostawie ciepla wynika z awarii sieci cieplowniczej KPEC.">Awaria c.o. KPEC</option>
-                        <option value="Informujemy, ze przerwa w dostawie wody wynika z awarii sieci wodociagowej MWIK.">Awaria wodna MWIK</option>
-                        <option value="W zwiazku z awaria zasilania (x-data), do godz. (x) mieszkancy pozbawieni beda pradu.">Brak prądu</option>
-                        <option value="Informujemy, ze (x-data) w godzinach (x) nastapi planowane przez ENEA S.A. wylaczenie pradu.">Planowane wyłączenie prądu ENEA</option>
-                        <option value="Informujemy, ze (x-data) Zaklad Gazowniczy zamknal doplyw gazu do mieszkan.">Brak gazu</option>
-                        <option value="Informujemy, ze (x-data) w godz. (x) odbedzie sie przeglad instalacji gazowej oraz przewodow kominowych.">Przegląd gaz</option>
-                        <option value="Informujemy, ze (x-data) w godz. (x) odbedzie sie przeglad instalacji elektrycznej.">Przegląd elektryka</option>
-                        <option value="Informuje, ze od (x-data) rozpoczna sie prace remontowe (x).">Remont</option>
-                        <option value="Informujemy, że od dzisiaj beda dostarczane do Panstwa skrzynek pocztowych i na adresy korespondencyjne, rozliczenie kosztow i karta oplat mieszkaniowych.">Korespondencja</option>
-                        <option value="Informujemy, ze (x-data) PSG przeprowadzi akcje przewonienia gazu ziemnego. Prosimy o zglaszanie nieszczelnosci instalacji gazowej do Spoldzielni tel.52 3664400.">Przewonienie gazu</option>
-                        <option value="Przypominamy, ze 20 (miesiac) mija termin platnosci oplat mieszkaniowych.">Opłaty mieszkaniowe</option>
-                        <option value="Informujemy, ze dd.mm-dd.mm br. w Panstwa budynku beda wymieniane wodomierze. Szczegoly w komunikacie na klatce oraz na stronie SMB.">Legalizacja</option>
-                        <option value="Informujemy, ze dd.mm-dd.mm br. w Panstwa budynku beda wymieniane baterie w podzielnikach. Szczegoly w komunikacie na klatce oraz na stronie SMB.">Baterie</option>
-                    </select>
-                </div>
+        <form class="form-horizontal" action="{{ url_for('sms_modraczek') }}" method="post">
             <div id="container">
                 <label for="phone">Telefon: </label>
                 <input type="text" class="form-control" id="phone" name="phone">
@@ -86,7 +65,8 @@
                 <span id="current">0</span>
                 <span id="maximum">/ 160</span>
                 </div>
-                <textarea class="form-control" rows="5" id="content" name="content" maxlength="160"></textarea>
+                <textarea class="form-control" rows="5" id="content" name="content" maxlength="160">
+                </textarea>
             </div>
             <button type="reset" class="btn btn-primary">Wyczyść formularz</button>
             <button type="submit" class="btn btn-primary">Wyślij</button>
@@ -101,7 +81,7 @@ $(document).ready(function() {
                 'serverSide': true,
                 'serverMethod': 'post',
                 'ajax': {
-                    'url':'/ajaxfilepanelsms_budynek'
+                    'url':'/ajaxfilepanelsms_modraczek'
                 },
                 'lengthMenu': [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
                 searching: true,
@@ -109,6 +89,7 @@ $(document).ready(function() {
                 "serverSide": true,
                 'columns': [
                     { data: 'test' },
+                    { data: 'idBudynek' },
                     { data: 'SymbolBudynku' },
                     { data: 'SymbolOsiedla' },
                     { data: 'Ulica' },
@@ -191,7 +172,5 @@ $('textarea').keyup(function() {
 
 
 });
-
 </script>
-<script src="static/js/script1.js"></script>
 {% endblock %}

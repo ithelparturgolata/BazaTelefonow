@@ -1,0 +1,428 @@
+{% include "header.html" %}
+{% include "base.html" %}
+{% block body %}
+    <link href="static/form_field.css" rel="stylesheet">
+    <div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <h2>Warsztaty cyrkowe</h2>
+            <a href="/insert_cyrkowe/" class="btn btn-outline-warning btn-xs" data-toggle="modal" data-target="#modaledit3">Dodaj ucznia</a>
+            <a href="/sms_cyrkowe/" class="btn btn-outline-primary btn-xs" data-toggle="modal" data-target="#modaledit5">SMS Grupa</a>
+            <a class="btn btn-outline-secondary" href="{{ url_for('panelmodraczek_menu') }}" role="button">Powrót</a>
+            {%with messages = get_flashed_messages()%}
+                {%if messages%}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissable" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{message}}
+                        </div>
+                    {%endfor%}
+                {%endif%}
+            {%endwith%}
+            <table class="table table-striped">
+                <tr>
+                    <th>id Uczeń</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th></th>
+                </tr>
+                {% for row in uczen %}
+                    <tr>
+                        <td>{{row.0}}</td>
+                        <td>{{row.1}}</td>
+                        <td>{{row.2}}</td>
+                        <td>
+                            <a href="/select_cyrkowe/{{row.0}}" class="btn btn-outline-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Więcej</a>
+                            <a href="/update_cyrkowe/{{row.0}}" class="btn btn-outline-dark btn-xs" data-toggle="modal" data-target="#modaledit1{{row.0}}">Edycja</a>
+                            <a href="/sms_modraczek/{{row.0}}" class="btn btn-outline-primary btn-xs" data-toggle="modal" data-target="#modaledit2{{row.0}}">SMS</a>
+                            <a href="/sms_modraczek/{{row.0}}" class="btn btn-outline-success btn-xs" data-toggle="modal" data-target="#modaledit2{{row.0}}">Wpłaty</a>
+                        </td>
+                    </tr>
+{#Modal wiecej#}
+                    <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Informacje ogólne</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('select_cyrkowe') }}" method="POST">
+                                        <div class="form-group">
+                                            <label>Imię:</label>
+                                            <input type="hidden"  name="idUczen" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="ImieUczen" value="{{row.1}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nazwisko:</label>
+                                            <input type="text" class="form-control"  name="NazwiskoUczen" value="{{row.2}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Data urodzenia:</label>
+                                            <input type="text" class="form-control"  name="DataUrodzenia" value="{{row.3}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Adres:</label>
+                                            <input type="text" class="form-control"  name="AdresUczen" value="{{row.4}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Matka:</label>
+                                            <input type="text" class="form-control"  name="ImieMatka" value="{{row.5}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pesel:</label>
+                                            <input type="text" class="form-control"  name="PeselMatka" value="{{row.6}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefon:</label>
+                                            <input type="text" class="form-control"  name="TelefonMatka" value="{{row.7}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input type="text" class="form-control"  name="EmailMatka" value="{{row.8}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ojciec:</label>
+                                            <input type="text" class="form-control"  name="ImieOjciec" value="{{row.9}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pesel:</label>
+                                            <input type="text" class="form-control"  name="PeselOjciec" value="{{row.10}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefon:</label>
+                                            <input type="text" class="form-control"  name="TelefonOjciec" value="{{row.11}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input type="text" class="form-control"  name="EmailOjciec" value="{{row.12}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Początek zajęć:</label>
+                                            <input type="text" class="form-control"  name="PoczatekZajec" value="{{row.13}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Koniec zajęć:</label>
+                                            <input type="text" class="form-control"  name="KoniecZajec" value="{{row.14}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#Modal update#}
+                    <div id="modaledit1{{row.0}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Aktualizacja</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('update_cyrkowe') }}" method="POST">
+                                        <div class="form-group">
+                                            <label>Imię:</label>
+                                            <input type="hidden"  name="idUczen" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="ImieUczen" value="{{row.1}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nazwisko:</label>
+                                            <input type="text" class="form-control"  name="NazwiskoUczen" value="{{row.2}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Data urodzenia:</label>
+                                            <input type="date" class="form-control"  name="DataUrodzenia" value="{{row.3}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Adres:</label>
+                                            <input type="text" class="form-control"  name="AdresUczen" value="{{row.4}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Matka:</label>
+                                            <input type="text" class="form-control"  name="ImieMatka" value="{{row.5}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pesel:</label>
+                                            <input type="tel" maxlength="11" minlength="11" class="form-control"  name="PeselMatka" value="{{row.6}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefon:</label>
+                                            <input type="tel" maxlength="12" class="form-control"  name="TelefonMatka" value="{{row.7}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input type="email" class="form-control"  name="EmailMatka" value="{{row.8}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ojciec:</label>
+                                            <input type="text" class="form-control"  name="ImieOjciec" value="{{row.9}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pesel:</label>
+                                            <input type="tel" minlength="11" maxlength="11" class="form-control"  name="PeselOjciec" value="{{row.10}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefon:</label>
+                                            <input type="tel" maxlength="12" class="form-control"  name="TelefonOjciec" value="{{row.11}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input type="email" class="form-control"  name="EmailOjciec" value="{{row.12}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Początek zajęć:</label>
+                                            <input type="date" class="form-control"  name="PoczatekZajec" value="{{row.13}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Koniec zajęć:</label>
+                                            <input type="date" class="form-control"  name="KoniecZajec" value="{{row.14}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Aktualizuj</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#Modal sms#}
+                    <div id="modaledit2{{row.0}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Wyślij SMS</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('sms_modraczek') }}" method="POST">
+                                        <div class="form-group">
+                                            <label>Imię:</label>
+                                            <input type="hidden"  name="idUczen" value="{{row.0}}">
+                                            <input type="text" class="form-control" name="ImieUczen" value="{{row.1}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nazwisko:</label>
+                                            <input type="text" class="form-control"  name="NazwiskoUczen" value="{{row.2}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Matka:</label>
+                                            <input type="text" class="form-control"  name="ImieMatka" value="{{row.5}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ojciec:</label>
+                                            <input type="text" class="form-control"  name="ImieOjciec" value="{{row.9}}" disabled>
+                                        </div>
+                                        <section class="h-100">
+                                            <div class="container h-100">
+                                                <form class="form-horizontal" action="{{ url_for('sms_modraczek') }}" method="post">
+                                                    <div id="container">
+                                                        <label for="phone">Telefon: </label>
+                                                        <input type="text" class="form-control"  id="phone" name="phone" value="{{row.7}}, {{ row.11 }}">
+                                                    </div>
+                                                    <div class="form-floating">
+                                                        <label for="content">Treść: </label>
+                                                        <div id="the-count">
+                                                            <span>Ilość znaków: </span>
+                                                            <span id="current">0</span>
+                                                            <span id="maximum">/ 160</span>
+                                                        </div>
+                                                        <textarea class="form-control" rows="5" placeholder="Wprowadź treść" id="content" name="content" maxlength="160" ></textarea>
+                                                    </div>
+                                                    <button type="reset" class="btn btn-primary">Wyczyść formularz</button>
+                                                    <button type="submit" class="btn btn-primary">Wyślij</button>
+                                                </form>
+                                            </div>
+                                        </section>
+                                        <div class="form-group">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#modal sms grupa rodzicow#}
+                    <div id="modaledit5" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Wyślij SMS</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('sms_modraczek') }}" method="POST">
+                                        <section class="h-100">
+                                            <div class="container h-100">
+                                                <form class="form-horizontal" action="{{ url_for('sms_modraczek') }}" method="post">
+                                                    <div id="container">
+                                                        <label for="phone">Telefon: </label>
+                                                        <input type="text" class="form-control"  id="phone" name="phone" value="{{ dataPhone }}">
+                                                    </div>
+                                                    <div class="form-floating">
+                                                        <label for="content">Treść: </label>
+                                                        <div id="the-count">
+                                                            <span>Ilość znaków: </span>
+                                                            <span id="current">0</span>
+                                                            <span id="maximum">/ 160</span>
+                                                        </div>
+                                                        <textarea class="form-control" rows="5" placeholder="Wprowadź treść" id="content" name="content" maxlength="160" ></textarea>
+                                                    </div>
+                                                    <button type="reset" class="btn btn-primary">Wyczyść formularz</button>
+                                                    <button type="submit" class="btn btn-primary">Wyślij</button>
+                                                </form>
+                                            </div>
+                                        </section>
+                                        <div class="form-group">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#modal rozliczenia#}
+{#modal insert#}
+              <div id="modaledit3" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"></button>
+                                    <h4 class="modal-title">Dodaj ucznia</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url_for('insert_cyrkowe') }}" method="POST">
+                                        <div class="form-group">
+                                            <label>Imię:</label>
+                                            <input type="hidden"  name="idUczen" value="{{row.0}}">
+                                            <input type="text" class="form-control" placeholder="Imię" name="ImieUczen" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nazwisko:</label>
+                                            <input type="text" class="form-control"  placeholder="Nazwisko" name="NazwiskoUczen" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Data urodzenia:</label>
+                                            <input type="date" class="form-control"  placeholder="Data urodzenia" name="DataUrodzenia" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Adres:</label>
+                                            <input type="text" class="form-control"  placeholder="Adres" name="AdresUczen" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Matka:</label>
+                                            <input type="text" class="form-control"  placeholder="Matka" name="ImieMatka">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pesel:</label>
+                                            <input type="tel" maxlength="11" minlength="11" class="form-control"  placeholder="Pesel" name="PeselMatka">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefon:</label>
+                                            <input type="tel" maxlength="12" class="form-control"  placeholder="Telefon" name="TelefonMatka">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input type="email" class="form-control"  placeholder="Email" name="EmailMatka">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ojciec:</label>
+                                            <input type="text" class="form-control"  placeholder="Ojciec" name="ImieOjciec">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pesel:</label>
+                                            <input type="tel" minlength="11" maxlength="11" class="form-control"  placeholder="Pesel" name="PeselOjciec">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefon:</label>
+                                            <input type="tel" maxlength="12" class="form-control"  placeholder="Telefon" name="TelefonOjciec">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input type="email" class="form-control"  placeholder="Email" name="EmailOjciec">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Początek zajęć:</label>
+                                            <input type="date" class="form-control"  placeholder="Początek zajęć" name="PoczatekZajec">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Koniec zajęć:</label>
+                                            <input type="date" class="form-control"  placeholder="Koniec zajęć" name="KoniecZajec">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Zajęcia:</label>
+                                            <input type="text" class="form-control" name="GrupaUczen" value="WarsztatyCyrkowe">
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" type="submit">Dodaj</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor  %}
+            </table>
+        </div>
+    </div>
+    </div>
+<script>
+$('textarea').keyup(function() {
+
+  var characterCount = $(this).val().length,
+      current = $('#current'),
+      maximum = $('#maximum'),
+      theCount = $('#the-count');
+
+  current.text(characterCount);
+
+
+  /*This isn't entirely necessary, just playin around*/
+  if (characterCount < 70) {
+    current.css('color', '#666');
+  }
+  if (characterCount > 70 && characterCount < 90) {
+    current.css('color', '#6d5555');
+  }
+  if (characterCount > 90 && characterCount < 100) {
+    current.css('color', '#793535');
+  }
+  if (characterCount > 100 && characterCount < 120) {
+    current.css('color', '#841c1c');
+  }
+  if (characterCount > 120 && characterCount < 139) {
+    current.css('color', '#8f0001');
+  }
+
+  if (characterCount >= 140) {
+    maximum.css('color', '#8f0001');
+    current.css('color', '#8f0001');
+    theCount.css('font-weight','bold');
+  } else {
+    maximum.css('color','#666');
+    theCount.css('font-weight','normal');
+  }
+
+
+});
+</script>
+<script src="static/js/script1.js"></script>
+{% endblock %}
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>

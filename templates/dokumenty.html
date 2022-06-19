@@ -1,113 +1,187 @@
-{% include "header.html" %}
-<link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
-
-{% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col md-12">
-            <h2>Wykaz budynków<button type="button" class="btn btn-success  pull-right" data-toggle="modal" data-target="#myModal">Dodaj</button></h2>
-            {%with messages = get_flashed_messages()%}
-                {%if messages%}
-                    {% for message in messages %}
-                        <div class="alert alert-success alert-dismissable" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label ="close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            {{message}}
+<!DOCTYPE html>
+<html>
+<head>
+<title>File Upload Progress Bar using Python Flask JQuery Ajax and MySQL Database</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+<!--<script src="/static/js/jquery.form.js"></script>-->
+</head>
+    <body>
+        <div class="container">
+            <br />
+            <h3 align="center">File Upload Progress Bar using Python Flask JQuery Ajax and MySQL Database</h3>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Ajax File Upload Progress Bar using JQuery Ajax</b></div>
+                <div class="panel-body">
+                    <form id="uploadImage" action="/upload" method="post">
+                        <div class="form-group">
+                            <label>File Upload</label>
+                            <input type="file" name="uploadFile" id="uploadFile" accept=".jpg, .png" />
                         </div>
-                    {%endfor%}
-                {%endif%}
-            {%endwith%}
-            <table class="table table-striped">
-                <tr>
-                    <th>id</th>
-                    <th>Indeks Budynek</th>
-                    <th>Ulica</th>
-                    <th>Osiedle</th>
-                    <th>Akcja</th>
-                </tr>
-                {% for row in dokumenty %}
-                    <tr>
-                        <td>{{row.0}}</td>
-                        <td>{{row.1}}</td>
-                        <td>{{row.2}}</td>
-                        <td>{{row.3}}</td>
-                        <td>
-                            <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edytuj</a>
-{#                            <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Skasuj</a>#}
-                        </td>
-                    </tr>
-                    <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Aktualizacja</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ url_for('update') }}" method="POST">
-                                        <div class="form-group">
-                                            <label>Indeks Budynek:</label>
-                                            <input type="hidden"  name="id_data" value="{{row.0}}">
-                                            <input type="text" class="form-control" name="indeks_budynek" value="{{row.1}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Ulica:</label>
-                                            <input type="text" class="form-control" name="ulica" value="{{row.2}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Osiedle:</label>
-                                            <input type="text" class="form-control" name="symbol_osiedla" value="{{row.3}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <button class="btn btn-primary" type="sbumit">Aktualizuj</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <input type="submit" id="uploadSubmit" value="Upload" class="btn btn-info" />
                         </div>
-                    </div>
-                {% endfor  %}
-                </tbody>
-            </table>
-        </div>
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Please Insert Data</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ url_for('insert') }}" method="POST">
-                            <div class="form-group">
-                                <label>Name:</label>
-                                <input type="text" class="form-control" name="indeks_budynek" required="1">
-                            </div>
-                            <div class="form-group">
-                                <label>Email:</label>
-                                <input type="text" class="form-control" name="ulica" required="1">
-                            </div>
-                            <div class="form-group">
-                                <label>Phone:</label>
-                                <input type="text" class="form-control" name="symbol_osiedla" required="1">
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Dodaj</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                    </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div id="targetLayer" style="display:none;"></div>
+                    </form>
+                    <div id="loader-icon" style="display:none;"><img src="/static/images/loader.gif" /></div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %}
-<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
-<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+<script>
+$(document).ready(function(){
+    $('#uploadImage').submit(function(event){
+        if($('#uploadFile').val()){
+            event.preventDefault();
+            $('#loader-icon').show();
+            $('#targetLayer').hide();
+            $(this).ajaxSubmit({
+                target: '#targetLayer',
+                beforeSubmit:function(){
+                    $('.progress-bar').width('50%');
+                },
+                uploadProgress: function(event, position, total, percentageComplete)
+                {
+                    $('.progress-bar').animate({
+                        width: percentageComplete + '%'
+                    }, {
+                        duration: 1000
+                    });
+                },
+                success:function(data){
+                    $('#loader-icon').hide();
+                    $('#targetLayer').show();
+                    $('#targetLayer').append(data.htmlresponse);
+                },
+                resetForm: true
+            });
+        }
+        return false;
+    });
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+{#{% include "header.html" %}#}
+{#<link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">#}
+{##}
+{#{% block body %}#}
+{#<div class="container">#}
+{#    <div class="row">#}
+{#        <div class="col md-12">#}
+{#            <h2>Wykaz budynków<button type="button" class="btn btn-success  pull-right" data-toggle="modal" data-target="#myModal">Dodaj</button></h2>#}
+{#            {%with messages = get_flashed_messages()%}#}
+{#                {%if messages%}#}
+{#                    {% for message in messages %}#}
+{#                        <div class="alert alert-success alert-dismissable" role="alert">#}
+{#                            <button type="button" class="close" data-dismiss="alert" aria-label ="close">#}
+{#                                <span aria-hidden="true">&times;</span>#}
+{#                            </button>#}
+{#                            {{message}}#}
+{#                        </div>#}
+{#                    {%endfor%}#}
+{#                {%endif%}#}
+{#            {%endwith%}#}
+{#            <table class="table table-striped">#}
+{#                <tr>#}
+{#                    <th>id</th>#}
+{#                    <th>Indeks Budynek</th>#}
+{#                    <th>Ulica</th>#}
+{#                    <th>Osiedle</th>#}
+{#                    <th>Akcja</th>#}
+{#                </tr>#}
+{#                {% for row in dokumenty %}#}
+{#                    <tr>#}
+{#                        <td>{{row.0}}</td>#}
+{#                        <td>{{row.1}}</td>#}
+{#                        <td>{{row.2}}</td>#}
+{#                        <td>{{row.3}}</td>#}
+{#                        <td>#}
+{#                            <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edytuj</a>#}
+{#                            <a href="/delete/{{ row.0 }}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Skasuj</a>#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                    <div id="modaledit{{row.0}}" class="modal fade" role="dialog">#}
+{#                        <div class="modal-dialog">#}
+{#                            <div class="modal-content">#}
+{#                                <div class="modal-header">#}
+{#                                    <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+{#                                    <h4 class="modal-title">Aktualizacja</h4>#}
+{#                                </div>#}
+{#                                <div class="modal-body">#}
+{#                                    <form action="{{ url_for('update') }}" method="POST">#}
+{#                                        <div class="form-group">#}
+{#                                            <label>Indeks Budynek:</label>#}
+{#                                            <input type="hidden"  name="id_data" value="{{row.0}}">#}
+{#                                            <input type="text" class="form-control" name="indeks_budynek" value="{{row.1}}">#}
+{#                                        </div>#}
+{#                                        <div class="form-group">#}
+{#                                            <label>Ulica:</label>#}
+{#                                            <input type="text" class="form-control" name="ulica" value="{{row.2}}">#}
+{#                                        </div>#}
+{#                                        <div class="form-group">#}
+{#                                            <label>Osiedle:</label>#}
+{#                                            <input type="text" class="form-control" name="symbol_osiedla" value="{{row.3}}">#}
+{#                                        </div>#}
+{#                                        <div class="form-group">#}
+{#                                            <button class="btn btn-primary" type="sbumit">Aktualizuj</button>#}
+{#                                        </div>#}
+{#                                    </form>#}
+{#                                </div>#}
+{#                                <div class="modal-footer">#}
+{#                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor  %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
+{#        <div id="myModal" class="modal fade" role="dialog">#}
+{#            <div class="modal-dialog">#}
+{#                <div class="modal-content">#}
+{#                    <div class="modal-header">#}
+{#                        <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+{#                        <h4 class="modal-title">Please Insert Data</h4>#}
+{#                    </div>#}
+{#                    <div class="modal-body">#}
+{#                        <form action="{{ url_for('insert') }}" method="POST">#}
+{#                            <div class="form-group">#}
+{#                                <label>Name:</label>#}
+{#                                <input type="text" class="form-control" name="indeks_budynek" required="1">#}
+{#                            </div>#}
+{#                            <div class="form-group">#}
+{#                                <label>Email:</label>#}
+{#                                <input type="text" class="form-control" name="ulica" required="1">#}
+{#                            </div>#}
+{#                            <div class="form-group">#}
+{#                                <label>Phone:</label>#}
+{#                                <input type="text" class="form-control" name="symbol_osiedla" required="1">#}
+{#                            </div>#}
+{#                            <div class="form-group">#}
+{#                                <button class="btn btn-primary" type="submit">Dodaj</button>#}
+{#                            </div>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                    <div class="modal-footer">#}
+{#                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#{% endblock %}#}
+{#<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>#}
+{#<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>#}

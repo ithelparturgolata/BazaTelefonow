@@ -5,6 +5,5 @@ $(document).ready(function(){
 
         let tel = $(this).next().next().next().next().next().next().html();
         $("#phone").val(tel);
-
-	});
+    });
 });

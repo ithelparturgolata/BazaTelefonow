@@ -1,0 +1,123 @@
+{% include "header.html" %}
+{% include "base.html" %}
+{% include "base_bazatelefony.html" %}
+{% block body %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="card shadow-sm">
+            <div class="alert alert-primary" role="alert">Baza adresów email - Budynki <a class="btn btn-outline-warning" href="{{ url_for('email_menu') }}" role="button">Powrót</a></div>
+            <div class="card-body">
+                <table class="table table-hover" id="empTable">
+                    <thead>
+                    <tr>
+                        <th>Zaznacz</th>
+                        <th>Id</th>
+                        <th>Indeks Budynek</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    var rows_selected = [];
+    var empDataTable = $('#empTable').DataTable({
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'ajax': {
+                    'url':'/ajaxfileemail_budynek'
+                },
+                'lengthMenu': [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                searching: true,
+                sort: false,
+                "serverSide": true,
+                'columns': [
+                    { data: 'test' },
+                    { data: 'id' },
+                    { data: 'indeksBudynek' },
+                    { data: 'email' },
+                    ],
+                columnDefs: [ {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0
+                    } ],
+                    select: {
+                        style:    'os',
+                        selector: 'td:first-child',
+                    },
+                    order: [[ 1, 'asc' ]],
+
+                "language": {
+                "decimal":        "",
+                "emptyTable":     "Brak danych",
+                "info":           "Pokaż _START_ do _END_ z _TOTAL_ budynków",
+                "infoEmpty":      "Pokaż 0 to 0 of 0 budynków",
+                "infoFiltered":   "(przeszukano w _MAX_ budynkach)",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "Pokaż _MENU_ budynków",
+                "loadingRecords": "Ładowanie...",
+                "processing":     "Przetwarzanie...",
+                "search":         "Szukaj:",
+                "zeroRecords":    "Nie ma takiego indeksu ",
+                "paginate": {
+                    "first":      "Pierwszy",
+                    "last":       "Ostatni",
+                    "next":       "Następny",
+                    "previous":   "Poprzedni"
+                },
+                "aria": {
+                    "sortAscending":  ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                }
+            }
+            });
+});
+
+$('textarea').keyup(function() {
+
+  var characterCount = $(this).val().length,
+      current = $('#current'),
+      maximum = $('#maximum'),
+      theCount = $('#the-count');
+
+  current.text(characterCount);
+
+
+  /*This isn't entirely necessary, just playin around*/
+  if (characterCount < 70) {
+    current.css('color', '#666');
+  }
+  if (characterCount > 70 && characterCount < 90) {
+    current.css('color', '#6d5555');
+  }
+  if (characterCount > 90 && characterCount < 100) {
+    current.css('color', '#793535');
+  }
+  if (characterCount > 100 && characterCount < 120) {
+    current.css('color', '#841c1c');
+  }
+  if (characterCount > 120 && characterCount < 139) {
+    current.css('color', '#8f0001');
+  }
+
+  if (characterCount >= 140) {
+    maximum.css('color', '#8f0001');
+    current.css('color', '#8f0001');
+    theCount.css('font-weight','bold');
+  } else {
+    maximum.css('color','#666');
+    theCount.css('font-weight','normal');
+  }
+
+
+});
+
+</script>
+<script src="static/js/script1.js"></script>
+{% endblock %}

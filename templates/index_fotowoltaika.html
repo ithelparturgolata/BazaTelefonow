@@ -1,0 +1,62 @@
+{% include "header.html" %}
+{% include "base.html" %}
+{% block body %}
+    <link href="static/form_field.css" rel="stylesheet">
+    <div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <h2>Fotowoltaika</h2><a class="btn btn-outline-secondary" href="{{ url_for('menu') }}" role="button">Powrót</a>
+        </div>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Ulica</th>
+      <th scope="col">Panel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>3 Maja 16</td>
+      <td><a href="https://monitoring.solaredge.com/solaredge-web/p/site/1990118/#/dashboard" class="btn btn-warning btn-xs" target="_blank">Więcej</a></td>
+
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Władysława Bełzy 50</td>
+      <td><a href="https://monitoring.solaredge.com/solaredge-web/p/site/2032763/#/dashboard" class="btn btn-warning btn-xs" target="_blank">Więcej</a></td>
+
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Magnuszewska 3</td>
+      <td><a href="https://monitoring.solaredge.com/solaredge-web/p/site/2048557/#/dashboard" class="btn btn-warning btn-xs" target="_blank">Więcej</a></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+{% endblock %}
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

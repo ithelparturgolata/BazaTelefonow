@@ -116,6 +116,11 @@
     display: flex;
     flex-direction: column;
   }
+.box {
+    inline-size: 150px;
+    overflow-wrap: break-word;
+    hyphens: manual;
+}
 }
 
 /*@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');*/

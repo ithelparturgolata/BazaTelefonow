@@ -1,0 +1,62 @@
+{% include "header.html" %}
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'jquery-3.3.1.slim.js') }}" ></script>
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'popper.min.js') }}" ></script>
+    <script type = "text/javascript" src = "{{ url_for('static', filename = 'bootstrap.min.js') }}" ></script>
+    <link href="{{ url_for('static', filename='style_bazatelefonow.css') }}" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{{ url_for('static', filename='weather.css') }}" rel="stylesheet" type='text/css'>
+{% block body %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="card shadow-sm">
+            <div><a class="btn btn-outline-warning" href="{{ url_for('menu') }}" role="button">Powrót</a>
+                <form class="container" method="post">
+                    <h2><i class="bi bi-cloud-haze"></i>Aktualna pogoda</h2>
+                    <div class="form-group">
+                        <label>Miasto</label>
+                        <input type="text" class="form-control" placeholder="Miasto" name="name"/>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Szukaj</button>
+                </form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card text-dark bg-white mb-5" style="max-width: 50rem">
+                                <div class="card-body">
+                                    <h1 class="card-title">{{ city_name }}</h1>
+                                    <div class="info">
+                                        <div class="right">
+                                            <h3 class="card-text">{{ temp }}&deg;C</h3>
+                                            <h4 class="card-text">{{ weather }}</h4>
+                                        </div>
+                                        <div class="left">
+                                        &nbsp;
+                                        <img src="http://openweathermap.org/img/w/{{icon}}.png" alt="" />
+                                        </div>
+                                    </div>
+                                     <hr style="width: 80%;">
+                                    <br />
+                                    <h5>Temperatura minimalna : {{min_temp}}&deg;C</h5>
+                                    <h5>Temperatura maksymalna : {{max_temp}}&deg;C</h5>
+{#                                    <h5>Opady deszczu : {{rain}}</h5>#}
+                                    <h5>Wilgotność : {{humidity}} %</h5>
+                                    <h5>Ciśnienie : {{pressure}} hPa</h5>
+                                    <h5>Prędkość wiatru : {{speed}} km/h</h5>
+                                    <h5>Współrzędne :</h5>
+                                    <h5>Długość geograficzna : {{lon}} </h5>
+                                    <h5>Szerokość geograficzna : {{lat}} </h5>
+
+                                </div>
+                            </div>
+                            <div id="openweathermap-widget-11"></div>
+{#                            <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '3102014',appid: '2213901a0c8514848e49f8c2433e97c9',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

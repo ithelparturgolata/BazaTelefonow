@@ -1,0 +1,230 @@
+{% include "header.html" %}
+{% include "base.html" %}
+{% block body %}
+    <div class="container py-3">
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <a class="btn btn-outline-secondary" href="{{ url_for('menu') }}" role="button">Powrót</a>
+        </div>
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal">Dom Kultury Modraczek</h1>
+            <p class="fs-5 text-muted">Grupy Słuchaczy</p>
+        </div>
+    </header>
+    <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+{#Card Klub Malucha#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Klub Malucha</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>12</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('klubmalucha_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+{#            Card Zajęcia adaptacyjne#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Zajęcia adaptacyjne</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Zajęcia adaptacyjne: </li>
+                            <li>22</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('zajecia_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+{#            Card Bajkowa Rytmika#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Bajkowa rytmika</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>34</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('rytmika_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{#            Card Pianino#}
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Pianino</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>50</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('pianino_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+{#            Card Warsztaty cyrkowe#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Warsztaty cyrkowe</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>12</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('cyrkowe_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+{#            Card Madra Sowka#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Mądra Sówka</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>12</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Jan Kowalski</li>
+                        </ul>
+                        <a href="{{ url_for('sowka_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{#            Card Plastyka#}
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Plastyka</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>50</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('plastyka_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+{#            Card Jezyk angielski#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Język angielski</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>12</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('angielski_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+{#            Card Jezyk niemiecki#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Język niemiecki</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>12</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('niemiecki_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{#            Card 8 klasa angielski#}
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Kurs 8-klasisty j.angielski</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>50</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('kurs8klangielski_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+{#            Card 8 klasa polski#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Kurs 8-klasisty j.polski</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników:</li>
+                            <li>12</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('kurs8klpolski_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+{#            Card 8 klasa matematyka#}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Kurs 8-klasisty matematyka</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Liczba uczestników: </li>
+                            <li>12</li>
+                            <li>Zajęcia prowadzi:</li>
+                            <li>Nazwisko nauczyciela</li>
+                        </ul>
+                        <a href="{{ url_for('kurs8klmatematyka_menu') }}" role="button" class="w-100 btn btn-lg btn-outline-primary" >Więcej</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    </div>
+
+{% endblock %}

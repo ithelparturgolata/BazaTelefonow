@@ -87,48 +87,6 @@
 .content-6:hover a{
   color: #baa749;
 }
-.content-7:hover{
-  border-color:#e28743 ;
-  background: #e28743;
-}
-.content-7:hover a{
-  color: #e28743;
-}
-.content-8:hover{
-  border-color: #86b300;
-  background: #86b300;
-}
-.content-8:hover a{
-  color: #86b300;
-}
-.content-9:hover{
-  border-color: #666699;
-  background: #666699;
-}
-.content-9:hover a{
-  color: #666699;
-}
-.content-11:hover{
-  border-color: #66ccff;
-  background: #66ccff;
-}
-.content-11:hover a{
-  color: #66ccff;
-}
-.content-12:hover{
-  border-color: #669999;
-  background: #669999;
-}
-.content-12:hover a{
-  color: #669999;
-}
-.content-13:hover{
-  border-color: #993399;
-  background: #993399;
-}
-.content-13:hover a{
-  color: #993399;
-}
 .content h2{
   font-size: 30px;
   margin: 16px 0;

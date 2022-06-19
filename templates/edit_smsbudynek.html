@@ -1,0 +1,27 @@
+{% extends "layout_smsbudynek.html" %}
+{% block body %}
+ 
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="card card-body">
+        <form action="/edit_smsbudynek/{{data.id}}" method="POST">
+          <div class="form-group">
+            <input type="text" name="fullname" value="{{data.id}}" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="text" name="phone" value="{{data.SymbolBudynku}}" class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="text" name="email" value="{{data.Numery}}" class="form-control">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

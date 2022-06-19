@@ -1,40 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %} - Aplikacja Baza Telefonów</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <link href="{{ url_for('static', filename='jquery.dataTables.min.css') }}" rel="stylesheet" type='text/css'>
-    <script type = "text/javascript" src = "{{ url_for('static', filename = 'jquery-3.5.1.js') }}" ></script>
-    <script type = "text/javascript" src = "{{ url_for('static', filename = 'jquery.dataTables.min.js') }}" ></script>
-
-</head>
-<body>
-<div class="col">
-    <div class="card shadow-sm">
-        <div class="alert alert-primary" role="alert"><a class="btn btn-outline-secondary" href="{{ url_for('panelsms_menu') }}" role="button">Powrót</a></div>
-        <div class="card-body">
-            <table class="table table-hover list-group" id="empTable">
-                <thead>
-                <tr>
-                    <th>idBudynek</th>
-                    <th>Indeks Budynku</th>
-                    <th>Symbol Osiedla</th>
-                    <th>Ulica</th>
-                    <th>Symbol Niieruchomości</th>
-                </tr>
-                </thead>
-            </table>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                <!--<a href="details_2316.html" class="btn btn-outline-warning">Szczegóły</a>-->
+{% include "header.html" %}
+{% include "base.html" %}
+{% include "base_bazasmsy.html" %}
+{% block body %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="card shadow-sm">
+            <div class="alert alert-primary" role="alert"><a class="btn btn-outline-warning" href="{{ url_for('panelsms_menu') }}" role="button">Powrót</a>
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Jak wysłać sms
+                </button>
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Reguły</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            WAŻNE! <br>
+                            Proszę o wpisywanie treści wiadomości SMS z klawiatury.<br><br>
+                            <b>Kopiowanie tekstu (np. z edytorów tekstowych)</b> skutkować może błędnym wysłaniem wiadomości lub naliczeniem większej liczby znaków z powodu konfliktu kodowania.<br>
+                            <br>
+                            <p>Znaki ^ { } [ ] ~ \ | € liczone są podwójnie (w przypadku wysyłania wiadomości bez znaków specjalnych) ze względu na wymogi specyfikacji GSM.</p>
+                            <br>
+                            SMS max - 160 znaków
+                            <br><br>
+                            <b>Proszę nie używać znaków diakrytycznych (ą, ć, ę, ł, ń, ó, ś, ź, ż. )</b>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>            <div class="card-body">
+                <table class="table table-hover" id="empTable">
+                    <thead>
+                    <tr>
+                    <th>Zaznacz</th>
+                    <th>Indeks Mieszkania</th>
+                    <th>Kontrahent</th>
+                    <th>Ulica</th>
+                    <th>Klatka</th>
+                    <th>Numery</th>
+                </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
 </div>
+<section class="h-100">
+    <div class="container h-100">
+        <form class="form-horizontal" action="{{ url_for('sendsms_kontrahent') }}" method="post">
+            <div id="container">
+                <label for="phone">Telefon: </label>
+                <input type="text" class="form-control" id="phone" name="phone">
+            </div>
+            <div class="form-floating">
+                <label for="content">Treść: </label>
+                <div id="the-count">
+                    <span>Ilość znaków: </span>
+                <span id="current">0</span>
+                <span id="maximum"> / 160</span>
+                </div>
+                <textarea class="form-control" rows="5" id="content" name="content" maxlength="160"></textarea>
+            </div>
+            <button type="reset" class="btn btn-primary">Wyczyść formularz</button>
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+    </div>
+</section>
 <script>
 $(document).ready(function() {
+    var rows_selected = [];
     var empDataTable = $('#empTable').DataTable({
                 'processing': true,
                 'serverSide': true,
@@ -47,14 +86,25 @@ $(document).ready(function() {
                 sort: false,
                 "serverSide": true,
                 'columns': [
-                    { data: 'idBudynek' },
-                    { data: 'SymbolBudynku' },
-                    { data: 'SymbolOsiedla' },
-                    { data: 'Ulica' },
-                    { data: 'SymbolNieruchomosci' },
-
+                    { data: 'test' },
+                    { data: 'indeks' },
+                    { data: 'nazwaKarty' },
+                    { data: 'adresKarty' },
+                    { data: 'klatkaSchodowa' },
+                    { data: 'telefon' },
                 ],
-                                      "language": {
+                columnDefs: [ {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0
+                    } ],
+                    select: {
+                        style:    'os',
+                        selector: 'td:first-child',
+                    },
+                    order: [[ 1, 'asc' ]],
+
+                "language": {
                 "decimal":        "",
                 "emptyTable":     "Brak danych",
                 "info":           "Pokaż _START_ do _END_ z _TOTAL_ kontrahentów",
@@ -66,7 +116,7 @@ $(document).ready(function() {
                 "loadingRecords": "Ładowanie...",
                 "processing":     "Przetwarzanie...",
                 "search":         "Szukaj:",
-                "zeroRecords":    "Nie ma takiego indeksu/nazwiska ",
+                "zeroRecords":    "Nie ma takiego indeksu ",
                 "paginate": {
                     "first":      "Pierwszy",
                     "last":       "Ostatni",
@@ -80,7 +130,41 @@ $(document).ready(function() {
             }
             });
 });
-</script>
+$('textarea').keyup(function() {
 
-</body>
-</html>
+  var characterCount = $(this).val().length,
+      current = $('#current'),
+      maximum = $('#maximum'),
+      theCount = $('#the-count');
+
+  current.text(characterCount);
+
+
+  /*This isn't entirely necessary, just playin around*/
+  if (characterCount < 70) {
+    current.css('color', '#666');
+  }
+  if (characterCount > 70 && characterCount < 90) {
+    current.css('color', '#6d5555');
+  }
+  if (characterCount > 90 && characterCount < 100) {
+    current.css('color', '#793535');
+  }
+  if (characterCount > 100 && characterCount < 120) {
+    current.css('color', '#841c1c');
+  }
+  if (characterCount > 120 && characterCount < 139) {
+    current.css('color', '#8f0001');
+  }
+
+  if (characterCount >= 140) {
+    maximum.css('color', '#8f0001');
+    current.css('color', '#8f0001');
+    theCount.css('font-weight','bold');
+  } else {
+    maximum.css('color','#666');
+    theCount.css('font-weight','normal');
+  }
+});
+</script>
+{% endblock %}

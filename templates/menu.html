@@ -8,35 +8,36 @@
 {% block body %}
     <div class="cards">
         <h2 class="header">
-            Platforma SM
+            Panel SM
         </h2>
+        <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}" role="button">Wyloguj</a>
         <div class="services">
             <div class="content content-1">
-                <div class="fa fa-address-book" style="font-size:48px"></div>
+                <div class="fa fa-address-book" style="font-size:72px"></div>
                 <h2>
-                    Baza Telefonów
+                    Telefony
                 </h2>
                 <p>
-                    Baza telefonów. Aplikacja służąca do kontaktu z mieszkańcami.
+                    Baza numerów.
                 </p>
                 <a class="nav-link" href="{{ url_for('paneltelefony_menu') }}">Otwórz</a>
             </div>
             <div class="content content-2">
-                <div class="fa fa-commenting" style="font-size:58px"></div>
+                <div class="fa fa-comment" style="font-size:72px"></div>
                 <h2>
                     Panel SMS
                 </h2>
-                <p>SMS Blok. Aplikacja służąca do wysyłania smsów do wskazancyh przez użytkownika bloków.
+                <p>SMS blok, kontrahent.
            </p>
            <a class="nav-link" href="{{ url_for('panelsms_menu') }}">Otwórz</a>
         </div>
         <div class="content content-3">
            <div class="fa fa-home" style="font-size:72px"></div>
            <h2>
-              Panel Mieszkańca
+              Panel
            </h2>
            <p>
-              Panel Mieszkańca. Aktualizacja danych.
+              Aktualizacja danych.
            </p>
            <a class="nav-link" href="{{ url_for('panelmieszkanca_menu') }}">Otwórz</a>
         </div>
@@ -50,28 +51,93 @@
            <p>
               Czynsz, media w formacie pdf.
            </p>
-           <a class="nav-link" href="{{ url_for('panelmieszkanca_menu') }}">Otwórz</a>
+           <a class="nav-link" href="{{ url_for('upload') }}">Otwórz</a>
         </div>
         <div class="content content-5">
-           <div class="fa fa-file" style="font-size:72px"></div>
+           <div class="fa fa-envelope-o" style="font-size:72px"></div>
            <h2>
-              Dokumentacja budynku
+              Wyślij email
            </h2>
            <p>
-              Dokumenty.
+              Masowa wysyłka email.
            </p>
-           <a class="nav-link" href="{{ url_for('dokumenty_menu') }}">Otwórz</a>
+           <a class="nav-link" href="{{ url_for('email_menu') }}">Otwórz</a>
         </div>
         <div class="content content-6">
            <div class="fa fa-user" style="font-size:72px"></div>
            <h2>
-              DK Modraczek
+              Modraczek
            </h2>
            <p>
               Baza uczestników.
            </p>
-           <a class="nav-link" href="{{ url_for('panelmieszkanca_menu') }}">Otwórz</a>
+           <a class="nav-link" href="{{ url_for('panelmodraczek_menu') }}">Otwórz</a>
         </div>
      </div>
+    <div class="services">
+        <div class="content content-7">
+           <div class="fa fa-sun-o" style="font-size:72px"></div>
+           <h2>
+              Pogoda
+           </h2>
+           <p>
+              Sprawdź pogodę.
+           </p>
+           <a class="nav-link" href="{{ url_for('weather') }}">Otwórz</a>
+        </div>
+        <div class="content content-8">
+           <div class="fa fa-phone-square" style="font-size:72px"></div>
+           <h2>
+              Pracownicy
+           </h2>
+           <p>
+              Wykaz pracowników
+           </p>
+           <a class="nav-link" href="{{ url_for('centrala_menu') }}">Otwórz</a>
+        </div>
+        <div class="content content-9">
+           <div class="fa fa-folder-open-o" style="font-size:72px"></div>
+           <h2>
+              Dokumenty
+           </h2>
+           <p>
+              Dokumentacja budynków.
+           </p>
+           <a class="nav-link" href="{{ url_for('panelmieszkanca_menu') }}">Otwórz</a>
+        </div>
+    </div>
+    <div class="services">
+    <div class="content content-11">
+       <div class="fa fa-desktop" style="font-size:72px"></div>
+       <h2>
+          Zasoby IT
+       </h2>
+       <p>
+          Wykaz sprzętu.
+       </p>
+       <a class="nav-link" href="{{ url_for('sprzet_menu') }}">Otwórz</a>
+    </div>
+    <div class="content content-12">
+       <div class="fa fa-bar-chart" style="font-size:72px"></div>
+       <h2>
+          Fotowoltaika
+       </h2>
+       <p>
+          Dane
+       </p>
+       <a class="nav-link" href="{{ url_for('fotowoltaika') }}">Otwórz</a>
+    </div>
+    <div class="content content-13">
+       <div class="fa fa-bicycle" style="font-size:72px"></div>
+       <h2>
+          Konserwator
+       </h2>
+       <p>
+          Zlecenia / usługi.
+       </p>
+       <a class="nav-link" href="{{ url_for('panelmodraczek_menu') }}">Otwórz</a>
+    </div>
+    </div>
+
   </div>
 {% endblock %}
